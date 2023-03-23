@@ -12,6 +12,7 @@ import fetchStory from "../helper/api";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
 import { AntDesign } from "@expo/vector-icons";
+import { useInterval } from "../customHooks/useInterval";
 
 export default function MainScreen() {
   const [data, setData] = useState([]);
@@ -24,50 +25,55 @@ export default function MainScreen() {
   const [filterParam, setFilterParam] = useState("");
   const [sort, setSort] = useState(false);
 
-  useEffect(() => {
-    // async function apiCall(page) {
-    //   if (request === 0) {
-    //     try {
-    //       setLoading(true);
-    //       const data = await fetchStory(page);
-    //       if (data.status === 200) {
-    //         setData(data.data.hits);
-    //       } else {
-    //         console.log(data.status, data.data);
-    //         setError("Oops Something went wrong");
-    //       }
-    //     } catch (error) {
-    //       console.log(error.message);
-    //       setError("Oops Something went wrong");
-    //     } finally {
-    //       setLoading(false);
-    //     }
-    //   } else {
-    //     setRequest(request + 1);
-    //   }
-    // }
+  // useEffect(() => {
+  //   // async function apiCall(page) {
+  //   //   if (request === 0) {
+  //   //     try {
+  //   //       setLoading(true);
+  //   //       const data = await fetchStory(page);
+  //   //       if (data.status === 200) {
+  //   //         setData(data.data.hits);
+  //   //       } else {
+  //   //         console.log(data.status, data.data);
+  //   //         setError("Oops Something went wrong");
+  //   //       }
+  //   //     } catch (error) {
+  //   //       console.log(error.message);
+  //   //       setError("Oops Something went wrong");
+  //   //     } finally {
+  //   //       setLoading(false);
+  //   //     }
+  //   //   } else {
+  //   //     setRequest(request + 1);
+  //   //   }
+  //   // }
 
-    // const interval = setInterval(() => {
-    //     // apiCall(request);
-    //     setRequest(request+1)
-    //     console.log(request);
-    // }, 10000);
-    // apiCall(request);
+  //   // const interval = setInterval(() => {
+  //   //     // apiCall(request);
+  //   //     setRequest(request+1)
+  //   //     console.log(request);
+  //   // }, 10000);
+  //   // apiCall(request);
 
-    // return () => {
-    //   clearInterval(interval);
-    // };
+  //   // return () => {
+  //   //   clearInterval(interval);
+  //   // };
 
-    // const interval = setInterval(() => {
-    //   apiData();
-    // }, 10000);
+  //   // const interval = setInterval(() => {
+  //   //   apiData();
+  //   // }, 10000);
 
-    apiData();
+  //   apiData();
 
-    // return () => {
-    //   clearInterval(interval);
-    // };
-  }, []);
+  //   // return () => {
+  //   //   clearInterval(interval);
+  //   // };
+  // }, []);
+
+
+  useInterval(apiData,10000);
+
+ 
 
   async function apiData() {
     setLoading(true);
@@ -229,10 +235,10 @@ export default function MainScreen() {
                 width: "100%",
                 alignItems: "center",
               }}
-              onEndReached={() => {
-                apiData();
-              }}
-              onEndReachedThreshold={0.2}
+              // onEndReached={() => {
+              //   apiData();
+              // }}
+              // onEndReachedThreshold={0.2}
             />
             {isLoading && <Loader />}
           </>
